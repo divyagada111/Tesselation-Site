@@ -1,0 +1,7 @@
+---
+title: "Tessellation & Tiling Explorer"
+format: html
+---
+
+# Introduction to Tiling & Tessellation
+Welcome to my reference guide on tessellation! A tessellation is the covering of a plane using shapes with no gaps or overlaps.
