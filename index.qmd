@@ -1,7 +1,83 @@
 ---
 title: "Tessellation & Tiling Explorer"
-format: html
+author: "Divya Gada"
+format: 
+  html:
+    toc: true
+    code-fold: true
+    theme: cosmo
 ---
 
-# Introduction to Tiling & Tessellation
-Welcome to my reference guide on tessellation! A tessellation is the covering of a plane using shapes with no gaps or overlaps.
+# 1. Introduction & Definition of Tiling
+
+A **tessellation** (or tiling) is the covering of a plane using one or more geometric shapes (referred to as **tiles**) with **no overlaps and no gaps**. 
+
+Mathematically, let $E^2$ be the Euclidean plane. A tiling of $E^2$ is a countable family of closed sets $\mathcal{T} = \{T_1, T_2, T_3, \dots\}$ such that:
+1. **Covering Condition:** The union of all tiles covers the entire plane: $\bigcup_{i} T_i = E^2$.
+2. **Interior Disjointness:** The interiors of any two distinct tiles do not overlap: $\text{int}(T_i) \cap \text{int}(T_j) = \emptyset$ for all $i \neq j$.
+
+---
+
+# 2. Core Properties of Tilings
+
+Tilings are categorized and analyzed using several fundamental geometric properties:
+
+* **Edge-to-Edge Property:** A tiling by polygons is called *edge-to-edge* if any two adjacent polygons intersect either at a single common vertex, along a full shared edge, or not at all. No vertex of one polygon lies strictly on the edge of another.
+* **Periodicity:** A tiling is **periodic** if it possesses translational symmetry in at least two independent directions, meaning the pattern repeats itself infinitely across a grid vector.
+* **Symmetry Groups:** Tilings are invariant under specific Euclidean isometry groups containing translations, rotations, reflections, and glide reflections.
+* **Regular vs. Irregular:** 
+  * *Regular tilings* consist of congruent regular polygons meeting edge-to-edge.
+  * *Irregular tilings* involve mixed shapes, non-regular polygons, or free-form geometries.
+
+---
+
+# 3. Mathematical Foundations: Vertex Figures
+
+For regular polygons with $n$ sides meeting $k$ times at a vertex, the interior angle sum around any vertex must equal $360^\circ$ ($2\pi$ radians):
+
+$$ k \cdot \frac{(n-2)\pi}{n} = 2\pi $$
+
+Dividing through by $2\pi$ yields the fundamental vertex equation:
+
+$$ \frac{1}{n} + \frac{1}{k} = \frac{1}{2} $$
+
+Solving this equation in positive integers reveals that only three regular polygons can tile the Euclidean plane:
+1. **Equilateral Triangles** ($n=3, k=6$)
+2. **Squares** ($n=4, k=4$)
+3. **Regular Hexagons** ($n=6, k=3$)
+
+---
+
+# 4. Python Demonstration: Square Grid Tessellation
+
+Quarto executes the Python code block below dynamically and renders the resulting vector graphic directly onto your live website.
+
+```{python}
+import matplotlib.pyplot as plt
+import numpy as np
+from matplotlib.patches import RegularPolygon
+
+# Create figure canvas
+fig, ax = plt.subplots(figsize=(6, 6))
+ax.set_aspect('equal')
+ax.axis('off')
+
+# Render a 5x5 square grid
+for r in range(5):
+    for c in range(5):
+        sq = RegularPolygon(
+            (c, r), 
+            numVertices=4, 
+            radius=0.7, 
+            orientation=np.pi/4, 
+            facecolor='#6baed6', 
+            edgecolor='#08519c',
+            linewidth=1.5
+        )
+        ax.add_patch(sq)
+
+plt.xlim(-1, 5)
+plt.ylim(-1, 5)
+plt.title("Square Tessellation {4,4}", fontsize=14, fontweight='bold')
+plt.show()
+```
